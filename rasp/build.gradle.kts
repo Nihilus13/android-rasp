@@ -7,7 +7,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("io.gitlab.arturbosch.detekt")
     id("org.jetbrains.dokka")
-    id("com.vanniktech.maven.publish")
+    //id("com.vanniktech.maven.publish")
+    id("maven-publish")
 }
 
 android {
@@ -92,7 +93,21 @@ fun configureDokka(dokkaTask: DokkaTask, outputDir: String) = dokkaTask.apply {
     }
 }
 
-mavenPublishing {
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                from(components["release"])
+
+                groupId = rootProject.extra["groupName"] as String
+                artifactId = "rasp-android"
+                version = rootProject.extra["versionName"] as String
+            }
+        }
+    }
+}
+
+/*mavenPublishing {
     group = rootProject.extra["groupName"] as String
     version = rootProject.extra["versionName"] as String
     coordinates("com.securevale", "rasp-android", rootProject.extra["versionName"] as String)
@@ -128,4 +143,4 @@ mavenPublishing {
             developerConnection.set("scm:git:ssh://git@github.com/securevale/android-rasp.git")
         }
     }
-}
+}*/

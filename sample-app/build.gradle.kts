@@ -27,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.valueOf(rootProject.extra["javaVersion"] as String)
+        targetCompatibility = JavaVersion.valueOf(rootProject.extra["javaVersion"] as String)
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.valueOf(rootProject.extra["javaVersion"] as String).toString()
     }
     namespace = "com.securevale.rasp.android.sample"
 

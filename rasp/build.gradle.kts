@@ -24,7 +24,7 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            consumerProguardFiles( "consumer-rules.pro")
+            consumerProguardFiles("consumer-rules.pro")
         }
 
         getByName("debug") {
@@ -34,14 +34,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.valueOf(rootProject.extra["javaVersion"] as String)
+        targetCompatibility = JavaVersion.valueOf(rootProject.extra["javaVersion"] as String)
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.valueOf(rootProject.extra["javaVersion"] as String).toString()
     }
-    namespace = "com.securevale.rasp.android"
+    namespace = "${rootProject.extra["groupName"] as String}.android"
 
     lint {
         abortOnError = true
@@ -93,9 +93,9 @@ fun configureDokka(dokkaTask: DokkaTask, outputDir: String) = dokkaTask.apply {
 }
 
 mavenPublishing {
-    group = "com.securevale.rasp"
-    version = "0.6.0"
-    coordinates("com.securevale", "rasp-android", "0.6.0")
+    group = rootProject.extra["groupName"] as String
+    version = rootProject.extra["versionName"] as String
+    coordinates("com.securevale", "rasp-android", rootProject.extra["versionName"] as String)
 
     publishToMavenCentral(SonatypeHost.S01, true)
     signAllPublications()

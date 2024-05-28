@@ -9,11 +9,13 @@ plugins {
     id("com.vanniktech.maven.publish") version "0.25.2"
 }
 
-val versionCode by extra { 6 }
-val versionName by extra { "0.6.0" }
+val groupName by extra { "com.securevale.rasp" }
+val versionName by extra { "0.7.0" }
 val minSdkVersion by extra { 24 }
 val compileSdkVersion by extra { 34 }
 val targetSdkVersion by extra { 34 }
+val javaVersion by extra { JavaVersion.VERSION_1_8.name }
+val versionCode by extra { 7 }
 
 task("clean", type = Delete::class) {
     delete(rootProject.buildDir)

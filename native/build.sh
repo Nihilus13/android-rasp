@@ -46,10 +46,16 @@ done
 
 if [[ "$DEBUG" == true ]]
 then
-    cargo build  --target aarch64-linux-android
-    cargo build  --target armv7-linux-androideabi
-    cargo build  --target i686-linux-android
-    cargo build  --target x86_64-linux-android
+echo BUILDING DEBUG
+    #cargo build  --target aarch64-linux-android
+    #cargo build  --target armv7-linux-androideabi
+    #cargo build  --target i686-linux-android
+    #cargo build  --target x86_64-linux-android
+    cargo ndk -t aarch64-linux-android --platform 24 -o "$BUILD_FOLDER/aarch64-linux-android/release/" build
+    cargo ndk -t armv7-linux-androideabi --platform 24 -o "$BUILD_FOLDER/armv7-linux-androideabi/release/" build
+    cargo ndk -t i686-linux-android --platform 24 -o "$BUILD_FOLDER/i686-linux-android/release/" build
+    cargo ndk -t x86_64-linux-android --platform 24 -o "$BUILD_FOLDER/x86_64-linux-android/release/" build
+
     create_folders
 
     cp -fr "$BUILD_FOLDER/aarch64-linux-android/debug/libnative.so" "arm64-v8a/libnative.so"
@@ -58,10 +64,15 @@ then
     cp -fr "$BUILD_FOLDER/x86_64-linux-android/debug/libnative.so" "x86_64/libnative.so"
 
 else
-  cargo build  --target aarch64-linux-android --release
-  cargo build  --target armv7-linux-androideabi --release
-  cargo build  --target i686-linux-android --release
-  cargo build  --target x86_64-linux-android --release
+echo BUILDING RELEASE
+  #cargo build  --target aarch64-linux-android --release
+  #cargo build  --target armv7-linux-androideabi --release
+  #cargo build  --target i686-linux-android --release
+  #cargo build  --target x86_64-linux-android --release
+  cargo ndk -t aarch64-linux-android --platform 24 -o "$BUILD_FOLDER/aarch64-linux-android/release/" build --release
+  cargo ndk -t armv7-linux-androideabi --platform 24 -o "$BUILD_FOLDER/armv7-linux-androideabi/release/" build --release
+  cargo ndk -t i686-linux-android --platform 24 -o "$BUILD_FOLDER/i686-linux-android/release/" build --release
+  cargo ndk -t x86_64-linux-android --platform 24 -o "$BUILD_FOLDER/x86_64-linux-android/release/" build --release
 
   create_folders
 
